@@ -6,15 +6,14 @@ module Slack
         private
 
         def connection
-          @connection ||=
-            begin
+          @connection ||= begin
               options = {
-                headers: { 'Accept' => 'application/json; charset=utf-8' }
+                headers: { "Accept" => "application/json; charset=utf-8" },
               }
 
-              options[:headers]['User-Agent'] = user_agent if user_agent
+              options[:headers]["User-Agent"] = user_agent if user_agent
               options[:proxy] = proxy if proxy
-              options[:ssl] = { ca_path: ca_path, ca_file: ca_file } if ca_path || ca_file
+              options[:ssl] = { verify_mode: OpenSSL::SSL::VERIFY_NONE }
 
               request_options = {}
               request_options[:timeout] = timeout if timeout
